@@ -54,6 +54,36 @@
   gap: 5px;
 }
 
-.mantine-TextInput-input{
-  width: 200%;
+.list-input{
+  width: 70%;
 }
+
+.item-card{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border: solid;
+  border-color: #F5F5F5;
+  padding: 10px;
+}
+
+.item-form{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 10px 10px;
+}
+
+.item-form > .button-section{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.item-buttons{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 5px;
+}
+

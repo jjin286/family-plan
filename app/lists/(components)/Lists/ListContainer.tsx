@@ -50,6 +50,7 @@ export function ListContainer({lists, create, deleteList}:{lists: Lists, create:
                         value={value}
                         onChange={(event) => setValue(event.currentTarget.value)}
                         required
+                        className='list-input'
                     />
                     <div className='button-section'>
                         <Button onClick={handleCreate}>Add</Button>
@@ -57,7 +58,7 @@ export function ListContainer({lists, create, deleteList}:{lists: Lists, create:
                     </div>
                 </div>
             )}
-            {lists.map(list => <ListCard key={list.id} list={list} deleteList={deleteList}/>)}
+            {lists && lists.map(list => <ListCard key={list.id} list={list} deleteList={deleteList}/>)}
 
         </div>
     );

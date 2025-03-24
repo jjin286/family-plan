@@ -33,7 +33,7 @@ export function ListCard({list, deleteList}:{list: List, deleteList : (id:number
         <div className="list-card">
             <h3>{list.name}</h3>
             <div className='button-section'>
-                <ListModal items={listItems}/>
+                <ListModal list={list} items={listItems}/>
                 <ActionIcon onClick={() => deleteList(list.id)}size={42} variant="default" aria-label="ActionIcon with size as a number">
                     <Trash2 />
                 </ActionIcon>
