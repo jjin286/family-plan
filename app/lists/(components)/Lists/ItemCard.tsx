@@ -1,21 +1,24 @@
-import { Checkbox } from '@mantine/core';
+import React from 'react';
+import { Checkbox, CloseButton } from '@mantine/core';
+import { Item } from "@/db/Lists";
 
-interface Item{
-    created_at: string;
-    id: number;
-    list_id: number;
-    text: string | null;
-}
-
-export function ItemCard({item}:{item : Item}){
+export function ItemCard(
+    {item, handleDelete, handleCheck}:{
+        item : Item,
+        handleDelete : (id : number) => void,
+        handleCheck : (id : number, check : boolean) => void
+    }
+){
     return(
         <div className="item-card">
             <Checkbox
-                defaultChecked
+                onChange={() => handleCheck(item.id, !item.check)}
+                checked={item.check}
                 label={item.text}
-                // description={"Description (optional)  "}
+                description={item.note}
                 size="md"
             />
+            <CloseButton onClick={() => handleDelete(item.id)}/>
         </div>
-    );  
+    );
 }

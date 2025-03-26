@@ -60,7 +60,7 @@
 
 .item-card{
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
   border: solid;
   border-color: #F5F5F5;
@@ -82,8 +82,16 @@
 
 .item-buttons{
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   padding: 5px;
 }
 
+.mantine-Modal-content{
+  min-height: 50vh;
+}
+
+.mantine-Checkbox-body{
+  display: flex;
+  align-items: center;
+}
