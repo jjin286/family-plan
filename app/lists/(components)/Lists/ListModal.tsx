@@ -16,11 +16,11 @@ export function ListModal({ list }:{ list: List}){
     const [show, setShow] = useState<boolean>(false);
     const [title, setTitle] = useState<string>("");
     const [note, setNote] = useState<string>("");
-    const [listItems, setListItems] = useState<Array<List>>([]);
+    const [listItems, setListItems] = useState<Array<Item>>([]);
 
     useEffect(() => {
         async function getItems(id : number){
-            const data  = await getListItems(id);
+            const data : Item[] = await getListItems(id);
             setListItems(data);
         }
 
@@ -29,8 +29,8 @@ export function ListModal({ list }:{ list: List}){
     },[])
 
     function handleSave(){
-        createItem(list.id, title, note);
-        setListItems((items: Item) => [...items, {
+        createItem(list.id, title, note, false);
+        setListItems((items) => [...items, {
             created_at: "now",
             id: 0,
             list_id: list.id,

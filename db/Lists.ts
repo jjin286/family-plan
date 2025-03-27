@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/client";
+import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js'
 
 export interface Item{
   created_at: string;
@@ -17,23 +18,24 @@ export interface List{
   name: string;
 };
 
-export async function getListItems(id : number){
-  const supabase = await createClient();
+export async function getListItems(id : number) : Promise<Item[]>{
+  const supabase = createClient();
 
-  const { data, error } = await supabase
+  const { data , error } = await supabase
     .from("list_items")
-    .select()
+    .select("*")
     .eq("list_id", id);
 
   if (error) {
     console.log(error)
+    return [];
   }
 
-  return data;
+  return data ?? [];
 }
 
 export async function getLists(){
-  const supabase = await createClient();
+  const supabase = createClient();
 
   const { data, error } = await supabase
     .from("lists")
@@ -47,7 +49,7 @@ export async function getLists(){
 }
 
 export async function createList(name : string){
-  const supabase = await createClient();
+  const supabase = createClient();
 
   const { error } = await supabase
     .from('lists')
@@ -59,7 +61,7 @@ export async function createList(name : string){
 }
 
 export async function createItem(listId : number, text : string, note : string, check : boolean){
-  const supabase = await createClient();
+  const supabase = createClient();
 
   const { error } = await supabase
     .from('list_items')
@@ -71,7 +73,7 @@ export async function createItem(listId : number, text : string, note : string, 
 }
 
 export async function checkItem(listId : number, check : boolean){
-  const supabase = await createClient();
+  const supabase = createClient();
 
   const { error } = await supabase
     .from('list_items')
@@ -84,7 +86,7 @@ export async function checkItem(listId : number, check : boolean){
 }
 
 export async function deleteItem(id : number){
-  const supabase = await createClient();
+  const supabase = createClient();
 
   const { error } = await supabase
     .from('list_items')
@@ -97,7 +99,7 @@ export async function deleteItem(id : number){
 }
 
 export async function deleteListById(id : number){
-  const supabase = await createClient();
+  const supabase = createClient();
 
   const { error } = await supabase
     .from('lists')
