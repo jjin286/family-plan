@@ -5,9 +5,9 @@ import { CirclePlus } from 'lucide-react';
 import { Button } from '@mantine/core';
 import { TextInput } from '@mantine/core';
 import "./Lists.css";
-import { useState } from 'react';
-
-
+import { useState, useOptimistic, useTransition, useEffect } from 'react';
+import { createList, deleteListById, updateList } from "../../actions";
+import { ListForm } from "./ListForm";
 
 interface List{
     created_at: string;
@@ -17,19 +17,69 @@ interface List{
 
 interface Lists extends Array<List>{}
 
-export function ListContainer({lists, create, deleteList}:{lists: Lists, create: (name:string) => void, deleteList:(id : number) => void}){
-    const [show, setShow] = useState(false);
-    const [value, setValue] = useState("");
+type Action = {
+    type : string,
+    list : List
+}
 
-    function handleCreate(){
-        create(value);
-        setValue("");
-        setShow(false);
+export function ListContainer({props}:{props: Lists}){
+    const [show, setShow] = useState(false);
+    const [optimisticList, setOptimisticList] = useOptimistic(props,
+        (state, action : Action) => {
+            switch (action.type){
+                case "add":
+                    return [...state, action.list];
+
+                case "delete":
+                    return state.filter((list) => list.id !== action.list.id);
+
+                case "update":
+                    return state.map((list) => list.id === action.list.id ? action.list : list);
+
+                default:
+                return state;
+            }
+        }
+    );
+
+    const [_, startTransition] = useTransition();
+
+    async function handleAdd(list : List){
+        startTransition(() => {
+            setOptimisticList({ type: "add", list : list });
+        });
+
+        try {
+            await createList(list.name);
+        } catch (error) {
+            console.error("Error adding list:", error);
+        }
     }
 
-    function handleCancel(){
-        setValue("");
-        setShow(false);
+    async function handleDelete(list : List){
+        startTransition(() => {
+            setOptimisticList({ type: "delete", list});
+        });
+
+        try {
+            await deleteListById(list.id);
+        } catch (error) {
+            console.error("Error deleting list:", error);
+        }
+    }
+
+    async function handleEdit(list : List){
+        startTransition(() => {
+            setOptimisticList({ type: "update", list});
+        });
+
+
+
+        try {
+            await updateList(list.id, list.name);
+        } catch (error) {
+            console.error("Error updating list:", error);
+        }
     }
 
     return(
@@ -43,23 +93,9 @@ export function ListContainer({lists, create, deleteList}:{lists: Lists, create:
                     <p>New List</p>
                 </Button>
             </div>
-            {show && (
-                <div className='list-card'>
-                    <TextInput
-                        size="lg"
-                        value={value}
-                        onChange={(event) => setValue(event.currentTarget.value)}
-                        required
-                        className='list-input'
-                    />
-                    <div className='button-section'>
-                        <Button onClick={handleCreate}>Add</Button>
-                        <Button onClick={handleCancel}>Cancel</Button>
-                    </div>
-                </div>
-            )}
-            {lists && lists.map(list => <ListCard key={list.id} list={list} deleteList={deleteList}/>)}
-
+            {show && <ListForm setShow={setShow} handleAdd={handleAdd}/>}
+            {optimisticList && optimisticList.map(list => <ListCard key={list.id} list={list} handleDelete={handleDelete} handleEdit={handleEdit}/>)}
+            {optimisticList.length === 0 && <h1>Add new lists!</h1>}
         </div>
     );
 }
