@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 
 
 // *********************** LIST ***********************
+//TODO:
 export async function getLists(){
   const supabase = await createClient();
 
@@ -18,7 +19,22 @@ export async function getLists(){
 
   return data;
 }
+//TODO:
+export async function getListById(id : number){
+  const supabase = await createClient();
 
+  const { data, error } = await supabase
+    .from("lists")
+    .select()
+    .eq('id', id);
+
+  if (error) {
+    console.log(error)
+  }
+
+  return data[0];
+}
+//TODO:
 export async function createList(name : string){
   const supabase = await createClient();
 
@@ -32,7 +48,7 @@ export async function createList(name : string){
 
   revalidatePath('/lists')
 }
-
+//TODO:
 export async function deleteListById(id : number){
   const supabase = await createClient();
 
@@ -47,34 +63,26 @@ export async function deleteListById(id : number){
 
   revalidatePath('/lists')
 }
-
-export async function updateList(id : number, name : string){
+//TODO:
+export async function updateList(id : number, name : string, description: string){
   const supabase = await createClient();
-  console.log("Submitted")
-  if (!id) {
-    console.error("Invalid ID provided for update.");
-  }
-
-  console.log("Updating list with ID:", id, "New Name:", name);
-
-  
 
   const { error } = await supabase
     .from('lists')
-    .update({ name: name })
+    .update({ name: name, description: description })
     .eq('id', id);
 
   if (error) {
     console.log(error)
   }
-  console.log("Ran edit", error)
+
   revalidatePath('/lists')
 }
 
 
 
 // *********************** ITEM ***********************
-
+//TODO:
 export async function getItems(id : number){
   const supabase = await createClient();
 
@@ -89,23 +97,38 @@ export async function getItems(id : number){
 
   return data ?? [];
 }
+//TODO:
+export async function createItem(listId : number, text : string, note: string){
+  const supabase = await createClient();
 
-// export async function createItem(formData: FormData) {
-//   const name = formData.get('name');
+  const { error } = await supabase
+    .from('list_items')
+    .insert({ text : text , note : note, list_id : listId, check : false});
 
-//   const supabase = createClient();
+  if (error) {
+    console.log(error)
+  }
 
-//   const { error } = await supabase
-//     .from('list_items')
-//     .insert({ text : text , note : note, list_id : listId, check : check});
+  revalidatePath(`/lists/${listId}`)
+}
+//TODO:
+export async function updateItem(listId : number, id : number, text : string, note: string, check : boolean){
+  const supabase = await createClient();
 
-//   if (error) {
-//     console.log(error)
-//   }
+  const { error } = await supabase
+    .from('list_items')
+    .update({ text: text, note: note, check: check })
+    .eq('id', id);
 
-// }
+  if (error) {
+    console.log(error)
+  }
 
-export async function deleteItem(id : number){
+  revalidatePath(`/lists/${listId}`)
+}
+
+//TODO:
+export async function deleteItem(listId : number, id : number){
   const supabase = await createClient();
 
   const { error } = await supabase
@@ -116,4 +139,6 @@ export async function deleteItem(id : number){
   if (error) {
     console.log(error)
   }
+
+  revalidatePath(`/lists/${listId}`)
 }

@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/client";
 import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js'
-
+//TODO:
 export interface Item{
   created_at: string;
   id: number;
@@ -9,15 +9,16 @@ export interface Item{
   note: string | null;
   check: boolean | null;
 }
-
+//TODO:
 export interface Items extends Array<Item>{}
-
+//TODO:
 export interface List{
   created_at: string;
   id: number;
   name: string;
+  description: string;
 };
-
+//TODO:
 export async function getListItems(id : number) : Promise<Item[]>{
   const supabase = createClient();
 
@@ -33,7 +34,7 @@ export async function getListItems(id : number) : Promise<Item[]>{
 
   return data ?? [];
 }
-
+//TODO:
 export async function getLists(){
   const supabase = createClient();
 
@@ -47,7 +48,7 @@ export async function getLists(){
 
   return data;
 }
-
+//TODO:
 export async function createList(name : string){
   const supabase = createClient();
 
@@ -59,7 +60,7 @@ export async function createList(name : string){
     console.log(error)
   }
 }
-
+//TODO:
 export async function createItem(listId : number, text : string, note : string, check : boolean){
   const supabase = createClient();
 
@@ -71,7 +72,7 @@ export async function createItem(listId : number, text : string, note : string, 
     console.log(error)
   }
 }
-
+//TODO:
 export async function checkItem(listId : number, check : boolean){
   const supabase = createClient();
 
@@ -80,11 +81,11 @@ export async function checkItem(listId : number, check : boolean){
     .update({ check: check })
     .eq('id', listId);
 
-  if (error) {  
+  if (error) {
     console.log(error)
   }
 }
-
+//TODO:
 export async function deleteItem(id : number){
   const supabase = createClient();
 
@@ -97,7 +98,7 @@ export async function deleteItem(id : number){
     console.log(error)
   }
 }
-
+//TODO:
 export async function deleteListById(id : number){
   const supabase = createClient();
 

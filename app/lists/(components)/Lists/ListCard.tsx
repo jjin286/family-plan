@@ -11,16 +11,19 @@ import { useState } from "react";
 import { deleteListById } from '../../actions';
 import { ListForm } from "./ListForm";
 
-
+//TODO:
 export function ListCard({list, handleDelete, handleEdit }:{list: List, handleDelete : (list : List) => void, handleEdit : (list : List) => void}){
     const [edit, setEdit] = useState(false);
 
     if(!edit)
     return(
         <div className="list-card">
-            <Link className="list-title" href={`/lists/${list.id}`}>
-                <h3>{list.name}</h3>
-            </Link>
+            <div>
+                <Link className="list-title" href={`/lists/${list.id}`}>
+                    <h3>{list.name}</h3>
+                </Link>
+                <p>{list.description}</p>
+            </div>
             <div className='button-section'>
                 <ActionIcon onClick={() => setEdit(true)} size={42} variant="default" aria-label="ActionIcon with size as a number">
                     <Pencil />

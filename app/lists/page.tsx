@@ -6,6 +6,7 @@ import "./(components)/Lists/Lists.css"
 import { useState, useEffect } from 'react';
 import { getLists } from './actions';
 
+//TODO:
 export default async function Lists(){
     const lists = await getLists();
 

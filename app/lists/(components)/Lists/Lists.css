@@ -58,6 +58,15 @@
   width: 70%;
 }
 
+.item-container{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  gap: 1px;
+}
+
 .item-card{
   display: flex;
   justify-content: space-between;
@@ -67,17 +76,36 @@
   padding: 10px;
 }
 
-.item-form{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin: 10px 10px;
-}
+
 
 .item-form > .button-section{
   display: flex;
   justify-content: space-between;
+}
 
+.list-form{
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+  gap: 5px;
+  border: solid;
+  border-radius: 15px;
+  border-color: #F5F5F5;
+}
+
+.item-form{
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+  gap: 5px;
+  border: solid;
+  border-radius: 15px;
+  border-color: #F5F5F5;
+}
+
+.list-form > .button-section{
+  display: flex;
+  justify-content: space-between;
 }
 
 .item-buttons{

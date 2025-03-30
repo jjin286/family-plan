@@ -3,25 +3,28 @@ import React from 'react';
 import { ListCard } from "./ListCard";
 import { CirclePlus } from 'lucide-react';
 import { Button } from '@mantine/core';
-import { TextInput } from '@mantine/core';
-import "./Lists.css";
-import { useState, useOptimistic, useTransition, useEffect } from 'react';
+import { useState, useOptimistic, useTransition } from 'react';
 import { createList, deleteListById, updateList } from "../../actions";
 import { ListForm } from "./ListForm";
+import { List, Lists } from "@/db/Lists";
+import "./Lists.css";
 
-interface List{
-    created_at: string;
-    id: number;
-    name: string;
-};
-
-interface Lists extends Array<List>{}
-
+/**
+ * type for handling useOptimistic hook
+ */
 type Action = {
     type : string,
     list : List
 }
 
+/**
+ * Component to contain list of ItemCard components, holds the logic of the page
+ *
+ * @param props - An object containing list of a family's list
+ * @returns A container div for List components
+ *
+ * {/app/lists -> ListContainer -> ListForm, ListCard, Button}
+ */
 export function ListContainer({props}:{props: Lists}){
     const [show, setShow] = useState(false);
     const [optimisticList, setOptimisticList] = useOptimistic(props,
@@ -44,6 +47,10 @@ export function ListContainer({props}:{props: Lists}){
 
     const [_, startTransition] = useTransition();
 
+     /**
+     * Handle adding list to database
+     * @param list - New list to be added to database
+     */
     async function handleAdd(list : List){
         startTransition(() => {
             setOptimisticList({ type: "add", list : list });
@@ -56,6 +63,10 @@ export function ListContainer({props}:{props: Lists}){
         }
     }
 
+    /**
+     * Handle deleting list from database
+     * @param list - New list to be added to database
+     */
     async function handleDelete(list : List){
         startTransition(() => {
             setOptimisticList({ type: "delete", list});
@@ -67,16 +78,17 @@ export function ListContainer({props}:{props: Lists}){
             console.error("Error deleting list:", error);
         }
     }
-
+    /**
+     * Handle editing of list to database
+     * @param list - List to be edited in database
+     */
     async function handleEdit(list : List){
         startTransition(() => {
             setOptimisticList({ type: "update", list});
         });
 
-
-
         try {
-            await updateList(list.id, list.name);
+            await updateList(list.id, list.name, list.description);
         } catch (error) {
             console.error("Error updating list:", error);
         }
