@@ -1,12 +1,15 @@
+"use client";
 import React from 'react';
 
 import { AvatarCard } from './(components)/AvatarCard';
+import { Scheduler } from "./(components)/(scheduler)/Scheduler";
 //TODO:
 export default function Family(){
+
     return(
-        <div className='family'>
+        <div className='family-grid'>
             <div className='banner'>
-              Meet the "Family"!
+                <h1> Meet the "Family"! </h1>
             </div>
             <div className='card-container'>
                 <AvatarCard />
@@ -28,10 +31,10 @@ export default function Family(){
 
             </div>
             <div className='family-schedule'>
-
+                <Scheduler />
             </div>
             <div className='family-announcement'>
-
+                <p>No announcements</p>
             </div>
             <div className='family-meal'>
 
