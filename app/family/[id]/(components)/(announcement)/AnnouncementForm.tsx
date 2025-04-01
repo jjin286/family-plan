@@ -1,11 +1,12 @@
 "use client";
 
-import React from 'react';
+import React, { SetStateAction } from 'react';
 import { TextInput, Textarea, Button, Modal } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { Announcement } from "@/db/Announcements";
+import "./Announcement.css"
 
-export function AnnouncementForm({showModal, announcement, handle}:{showModal : boolean, announcement?: Announcement, handle : (announcement : Announcement) => void}){
+export function AnnouncementForm({showModal, announcement, handle, setShowModal}:{showModal : boolean, announcement?: Announcement, handle : (announcement : Announcement) => void, setShowModal: React.Dispatch<SetStateAction<boolean>>}){
     const form = useForm({
         initialValues: {
             title: announcement ? announcement.title : "",
@@ -25,7 +26,7 @@ export function AnnouncementForm({showModal, announcement, handle}:{showModal : 
         form.reset();
     }
     return(
-        <Modal opened={showModal} onClose={close} title="Add Announcement">
+        <Modal opened={showModal} onClose={() => setShowModal(false)} centered={true} title="Add Announcement">
             <form className="announcement-form" onSubmit={form.onSubmit(handleSubmit)}>
                 <TextInput
                     size="lg"
@@ -45,7 +46,7 @@ export function AnnouncementForm({showModal, announcement, handle}:{showModal : 
                 <div className='button-section'>
                     <Button type="submit">Submit</Button>
                     <Button color='red' onClick={() => {
-                        close();
+                        setShowModal(false)
                         form.reset();
                     }}>Cancel</Button>
                 </div>

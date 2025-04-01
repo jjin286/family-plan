@@ -81,7 +81,7 @@ export function Announcement({ family, announcements, userId } : { family : Fami
                 <h1>"Family" Announcements</h1>
                 <Button className='add-button' onClick={() => setShowModal(true)}>Add</Button>
             </div>
-            {showModal && <AnnouncementForm showModal={showModal} handle={handleAdd}/>}
+            {showModal && <AnnouncementForm showModal={showModal} handle={handleAdd} setShowModal={setShowModal}/>}
             {optimisticAnnouncements.length === 0 &&  <h3>There are no announcements</h3>}
             {optimisticAnnouncements.map((announcement : Announcement) => (
                 <AnnouncementCard key={announcement.id} announcement={announcement} userId={userId} handleDelete={handleDelete}/>
