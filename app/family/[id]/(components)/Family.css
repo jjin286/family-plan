@@ -1,0 +1,86 @@
+.family{
+  display: grid;
+  max-width: 1000px;
+  margin: auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  grid-template:
+    "Banner Banner Banner Banner"
+    "FamilyAnnouncement FamilyAnnouncement FamilyAnnouncement FamilyAnnouncement"
+    "FamilyCard FamilyCard FamilyCard FamilyCard"
+    "FamilyCalendar FamilyCalendar FamilyCalendar FamilyCalendar"
+    "FamilyList FamilyPoll FamilyWheel FamilyTodo "
+    "FamilySchedule . FamilyMeal FamilyPhotos "
+    "FamilyMessages FamilyMessages FamilyMessages FamilyMessages "
+  ;
+}
+
+.banner{
+  grid-area: Banner;
+  background-color: #F5F5F5;
+}
+
+.family-cards{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  grid-area: FamilyCard;
+}
+
+.family-calendar{
+  grid-area: FamilyCalendar;
+}
+
+.family-list{
+  grid-area: FamilyList;
+}
+
+.family-poll{
+  grid-area: FamilyPoll;
+}
+
+.family-wheel{
+  grid-area: FamilyWheel;
+}
+
+.family-todo{
+  grid-area: FamilyTodo;
+}
+
+.family-schedule{
+  grid-area: FamilySchedule;
+}
+
+.family-announcement{
+  grid-area: FamilyAnnouncement;
+}
+
+.family-meal{
+  grid-area: FamilyMeal;
+}
+
+.family-Photos{
+  grid-area: FamilyPhotos;
+}
+
+.family-messages{
+  grid-area: FamilyMessages;
+}
+
+.avatar-card{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 300px;
+}
+
+.mantine-Card-root{
+  width: 100%;
+}
+
+.card-container{
+  display: flex;
+  gap: 5px;
+}

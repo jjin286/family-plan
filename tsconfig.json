@@ -3,6 +3,7 @@
     "types": ["node", "jest", "@testing-library/jest-dom"],
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "strictNullChecks":false,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -16,6 +17,7 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
+      // "@/*": ["./*"]
       "@/*": ["./*"]
     },
     "plugins": [{ "name": "next" }]

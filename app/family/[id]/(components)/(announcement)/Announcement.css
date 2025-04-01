@@ -1,0 +1,27 @@
+.announcement-container{
+  background-color: #F5F5F5;
+  padding: 10px;
+
+}
+
+.heading{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 50px;
+}
+
+.heading > .add-button{
+  padding: 0px 50px;
+}
+
+.announcement-form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.announcement-form > .button-section {
+  display: flex;
+  justify-content: space-between;
+}

@@ -26,10 +26,13 @@
     "@next/bundle-analyzer": "^15.2.3",
     "@supabase/ssr": "^0.6.1",
     "@tabler/icons-react": "^3.31.0",
+    "date-fns": "^4.1.0",
     "lucide": "^0.483.0",
     "lucide-react": "^0.483.0",
+    "module-alias": "^2.2.3",
     "next": "15.2.3",
     "react": "19.0.0",
+    "react-big-calendar": "^1.18.0",
     "react-dom": "19.0.0"
   },
   "devDependencies": {
